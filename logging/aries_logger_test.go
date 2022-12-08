@@ -40,3 +40,13 @@ func (suite *AriesLoggerTestSuite) TestShouldCreateLogggerEntry() {
 	suite.Equal(0, len(loggerEntry.Data))
 	suite.Equal("", loggerEntry.err)
 }
+
+func (suite *AriesLoggerTestSuite) TestShouldCreatePublicLoggerEntry() {
+	logursEntry := logrus.StandardLogger().WithContext(context.Background())
+	loggerEntry := NewloggerEntry()
+
+	suite.Equal(context.Background(), loggerEntry.context)
+	suite.Equal(logursEntry, loggerEntry.stdEntry)
+	suite.Equal(0, len(loggerEntry.Data))
+	suite.Equal("", loggerEntry.err)
+}
