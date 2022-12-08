@@ -27,7 +27,7 @@ func (suite *AriesLoggerTestSuite) SetupTest() {
 
 func (suite *AriesLoggerTestSuite) TestForTestSuite() {
 	expected := 5
-	actual := 5
+	actual := 4
 	suite.Equal(expected, actual)
 }
 
