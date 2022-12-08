@@ -1,30 +1,25 @@
 package logging
 
 import (
-	"net/http/httptest"
-	"testing"
+	"context"
 
-	"github.com/gin-gonic/gin"
-	"github.com/stretchr/testify/suite"
+	"github.com/sirupsen/logrus"
 )
 
-type AriesLoggerTestSuite struct {
-	suite.Suite
-	context  *gin.Context
-	recorder *httptest.ResponseRecorder
+type AriesLoggerFields map[string]interface{}
+
+type AriesLoggerEntry struct {
+	context  context.Context
+	stdEntry *logrus.Entry
+	Data     AriesLoggerFields
+	err      string
 }
 
-func TestAriesLoggerTestSuite(t *testing.T) {
-	suite.Run(t, new(AriesLoggerTestSuite))
+func newAriesLoggerEntry(ctx context.Context, stdEntry *logrus.Entry) *AriesLoggerEntry {
+	return &AriesLoggerEntry{context: ctx, stdEntry: stdEntry, Data: make(AriesLoggerFields, 6), err: ""}
 }
 
-func (suite *AriesLoggerTestSuite) SetupTest() {
-	suite.recorder = httptest.NewRecorder()
-	suite.context, _ = gin.CreateTestContext(suite.recorder)
-}
-
-func (suite *AriesLoggerTestSuite) TestForTestSuite() {
-	expected := 5
-	actual := 5
-	suite.Equal(expected, actual)
+func NewloggerEntry() *AriesLoggerEntry {
+	ctx := context.TODO()
+	return newAriesLoggerEntry(ctx, logrus.StandardLogger().WithContext(ctx))
 }
