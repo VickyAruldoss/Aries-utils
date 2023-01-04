@@ -49,4 +49,6 @@ func (suite *AriesLoggerTestSuite) TestShouldCreatePublicLoggerEntry() {
 	suite.Equal(logursEntry, loggerEntry.stdEntry)
 	suite.Equal(0, len(loggerEntry.Data))
 	suite.Equal("", loggerEntry.err)
+	suite.Equal("", loggerEntry.err)
+
 }
